@@ -15,9 +15,13 @@ type TxWriter interface {
 	Writer
 }
 
-type TxRW struct {
+type TxRW interface {
 	Tx
 	ReaderWriter
+}
+
+type txRW struct {
+	TxRW
 }
 
 type Tx interface {

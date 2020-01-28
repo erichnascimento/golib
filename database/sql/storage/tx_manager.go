@@ -15,7 +15,7 @@ type TransactionManager struct {
 	db *sql.DB
 }
 
-func (tm *TransactionManager) Begin() (*TxRW, error)  {
+func (tm *TransactionManager) Begin() (TxRW, error)  {
 	dbTx, err := tm.db.Begin()
 	if err != nil {
 		return nil, xerrors.Errorf("begin transaction error: %w", err)
@@ -23,8 +23,7 @@ func (tm *TransactionManager) Begin() (*TxRW, error)  {
 
 	tx := &tx{dbTx}
 
-	return &TxRW{
-		Tx:  tx,
-		ReaderWriter: tx,
+	return &txRW{
+		TxRW: tx,
 	}, nil
 }
